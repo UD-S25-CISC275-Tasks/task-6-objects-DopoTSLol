@@ -121,7 +121,11 @@ export function renameQuestion(question: Question, newName: string): Question {
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    return question;
+    let invertedQuestion: Question = { ...question };
+
+    invertedQuestion.published = !invertedQuestion.published;
+
+    return invertedQuestion;
 }
 
 /**
@@ -131,7 +135,13 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    return oldQuestion;
+    let copiedQuestion: Question = { ...oldQuestion };
+
+    copiedQuestion.name = "Copy of " + copiedQuestion.name;
+    copiedQuestion.id = id;
+    copiedQuestion.published = false;
+
+    return copiedQuestion;
 }
 
 /**
