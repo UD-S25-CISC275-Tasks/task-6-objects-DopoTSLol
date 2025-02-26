@@ -81,7 +81,26 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    return "";
+    let modifiedName: string = "# " + { ...question }.name + "\n";
+    let clonedQuestion: Question = { ...question };
+
+    if (question.type === "multiple_choice_question") {
+        let allQuestions: string = "";
+
+        clonedQuestion.options.map(
+            (optn: string): string =>
+                (allQuestions = allQuestions + "- " + optn + "\n"),
+        );
+
+        return (
+            modifiedName +
+            clonedQuestion.body +
+            "\n" +
+            allQuestions.slice(0, allQuestions.length - 1)
+        );
+    } else {
+        return modifiedName + clonedQuestion.body;
+    }
 }
 
 /**
@@ -89,7 +108,11 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    return question;
+    let newQuestion: Question = { ...question };
+
+    newQuestion.name = newName;
+
+    return newQuestion;
 }
 
 /**
